@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduPath Digital — Platform E-Learning & Marketplace Digital LMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#0038b1',
+            'primary-container': '#1e4fd8',
+            'primary-dark': '#0B2E8A',
+            'text-primary': '#0F172A',
+            'text-secondary': '#64748B',
+            'text-muted': '#94A3B8',
+            'surface-border': '#E2E8F0',
+            'surface': '#FFFFFF',
+            'surface-container-low': '#f1f4f9',
+            'surface-container-high': '#e5e8ed',
+            'tint-blue-subtle': '#EFF6FF',
+            'tint-green-subtle': '#ECFDF5',
+            'tint-purple-subtle': '#F5F3FF',
+            'tint-orange-subtle': '#FFFBEB',
+            'badge-live-bg': '#DCFCE7',
+            'badge-live-text': '#15803D',
+            'accent-green': '#12B76A',
+            'accent-purple': '#7C3AED',
+            'accent-orange': '#F59E0B',
+            'error': '#ba1a1a',
+            'error-container': '#ffdad6'
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#F4F7FC] font-sans text-text-primary antialiased min-h-screen flex flex-col">
+
+  <!-- ============================================ -->
+  <!-- SIDEBAR NAVIGATION (FIXED 240px)             -->
+  <!-- ============================================ -->
+  <aside class="fixed left-0 top-0 h-screen w-60 bg-surface z-50 flex flex-col justify-between border-r border-surface-border">
+    <div class="flex flex-col">
+      <!-- Brand Header -->
+      <div class="h-16 px-5 flex items-center gap-3 border-b border-surface-border cursor-pointer" onclick="window.EduPathApp.navigateTo('katalog')">
+        <div class="w-9 h-9 rounded-xl bg-primary-container flex items-center justify-center text-white shadow-sm">
+          <span class="material-symbols-outlined text-[20px]">school</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-text-primary leading-tight tracking-tight text-[16px]">EduPath</span>
+          <span class="text-[11px] font-semibold text-primary-container uppercase tracking-wider">Digital LMS</span>
+        </div>
+      </div>
+
+      <!-- Navigation Menus -->
+      <div class="p-3">
+        <!-- 1. GUEST NAVIGATION -->
+        <nav id="nav-guest" class="flex flex-col gap-1">
+          <a data-path="katalog" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-primary-container text-white font-bold shadow-sm transition-all" href="#">
+            <span class="material-symbols-outlined text-[20px]">apps</span>
+            <span class="text-sm">Katalog Kursus</span>
+          </a>
+          <a data-path="login" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-label-md text-label-md text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-all" href="#">
+            <span class="material-symbols-outlined text-[20px]">login</span>
+            <span class="text-sm">Masuk / Daftar</span>
+          </a>
+        </nav>
+
+        <!-- 2. MEMBER NAVIGATION -->
+        <nav id="nav-member" class="hidden flex flex-col gap-1">
+          <a data-path="dashboard" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-primary-container text-white font-bold shadow-sm transition-all" href="#">
+            <span class="material-symbols-outlined text-[20px]">dashboard</span>
+            <span class="text-sm">Dashboard</span>
+          </a>
+          <a data-path="katalog" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-all text-sm" href="#">
+            <span class="material-symbols-outlined text-[20px]">storefront</span>
+            <span>Katalog Kelas</span>
+          </a>
+          <a data-path="ruang-materi" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-all text-sm" href="#">
+            <span class="material-symbols-outlined text-[20px]">play_circle</span>
+            <span>Ruang Belajar</span>
+          </a>
+          <a data-path="keluar" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-error hover:bg-error-container hover:text-error transition-all text-sm mt-2" href="#">
+            <span class="material-symbols-outlined text-[20px]">logout</span>
+            <span>Keluar</span>
+          </a>
+        </nav>
+
+        <!-- 3. ADMIN NAVIGATION -->
+        <nav id="nav-admin" class="hidden flex flex-col gap-1">
+          <a data-path="admin-dashboard" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-primary-container text-white font-bold shadow-sm transition-all" href="#">
+            <span class="material-symbols-outlined text-[20px]">analytics</span>
+            <span class="text-sm">Dashboard Admin</span>
+          </a>
+          <a data-path="admin-crm" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-all text-sm" href="#">
+            <span class="material-symbols-outlined text-[20px]">group</span>
+            <span>Member & CRM 360°</span>
+          </a>
+          <a data-path="admin-transaksi" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-all text-sm justify-between" href="#">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-[20px]">credit_card</span>
+              <span>Transaksi</span>
+            </div>
+            <span id="adm-pending-trx-count" class="px-1.5 py-0.2 rounded-full bg-accent-orange text-white text-[10px] font-bold">0</span>
+          </a>
+          <a data-path="admin-kelas" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-all text-sm" href="#">
+            <span class="material-symbols-outlined text-[20px]">menu_book</span>
+            <span>Kelola Kelas</span>
+          </a>
+          <a data-path="admin-wa" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-all text-sm" href="#">
+            <span class="material-symbols-outlined text-[20px]">chat</span>
+            <span>WhatsApp Gateway</span>
+          </a>
+          <a data-path="admin-broadcast" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-all text-sm" href="#">
+            <span class="material-symbols-outlined text-[20px]">send</span>
+            <span>Broadcast WA</span>
+          </a>
+          <button onclick="window.EduPathApp.bukaModalMigrasi()" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-all text-sm text-left w-full">
+            <span class="material-symbols-outlined text-[20px] text-accent-purple">move_down</span>
+            <span>Migrasi Database</span>
+          </button>
+          <a data-path="logout" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-error hover:bg-error-container hover:text-error transition-all text-sm mt-2" href="#">
+            <span class="material-symbols-outlined text-[20px]">logout</span>
+            <span>Keluar Admin</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Motivational Box (Bottom) -->
+    <div class="m-3 p-4 rounded-xl bg-tint-blue-subtle border border-surface-border">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-7 h-7 rounded-lg bg-surface flex items-center justify-center text-primary-container shadow-sm">
+          <span class="material-symbols-outlined text-[18px]">verified</span>
+        </div>
+        <span class="font-bold text-primary-container text-[11px] uppercase tracking-wide">Prestasi Mandiri</span>
+      </div>
+      <h4 class="text-[12px] font-bold text-text-primary leading-snug mb-1">Belajar. Praktik. Sukses.</h4>
+      <p class="text-[11px] text-text-secondary leading-relaxed">Raih keahlian digital masa depan langkah demi langkah.</p>
+    </div>
+  </aside>
+
+  <!-- ============================================ -->
+  <!-- MAIN LAYOUT & TOP BAR                        -->
+  <!-- ============================================ -->
+  <div class="pl-60 min-h-screen flex flex-col justify-between">
+    <!-- Top Header Bar -->
+    <header class="fixed top-0 left-60 right-0 h-16 bg-surface/90 backdrop-blur-md border-b border-surface-border z-40 px-8 flex items-center justify-between">
+      <div class="flex flex-col">
+        <h1 class="font-bold text-text-primary text-[17px] leading-tight app-brand-name">EduPath Digital LMS</h1>
+        <p class="text-xs text-text-secondary leading-none">Platform Belajar & Marketplace Digital Mandiri</p>
+      </div>
+
+      <!-- Quick Action / Status Chip -->
+      <div class="flex items-center gap-4">
+        <div id="user-profile-bar" class="hidden flex items-center gap-3 pl-2">
+          <div class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-xs">
+            <span class="material-symbols-outlined text-[18px]">person</span>
+          </div>
+          <div class="flex flex-col text-left">
+            <span id="header-user-nama" class="font-bold text-text-primary text-xs leading-tight">Member</span>
+            <span id="header-user-role" class="text-[10px] text-primary-container font-semibold">Member Aktif</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- DYNAMIC VIEWS CONTAINER                      -->
+    <!-- ============================================ -->
+    <main class="w-full pt-16 flex-1 p-6 lg:p-8">
+
+      <!-- ========================================== -->
+      <!-- VIEW 1: KATALOG KURSUS (PUBLIK)           -->
+      <!-- ========================================== -->
+      <section id="view-katalog" class="app-view space-y-6">
+        <div class="rounded-2xl bg-gradient-to-r from-primary via-primary-container to-primary-dark p-8 text-white relative overflow-hidden shadow-sm">
+          <div class="relative z-10 max-w-2xl space-y-3">
+            <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-bold uppercase tracking-wider">Marketplace Kursus & Produk Digital</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Kembangkan Keahlian Digital Masa Depan</h2>
+            <p class="text-white/90 text-sm leading-relaxed">Pilih kurikulum praktis berbasis proyek. Akses modul video terpadu, lampiran dokumen, dan otomatisasi WhatsApp.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-text-primary">Daftar Kursus Unggulan</h3>
+            <span class="text-xs text-text-secondary">Akses seumur hidup & terverifikasi</span>
+          </div>
+          <div id="katalog-cards-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <!-- Dynamic Cards Loaded via app.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 2: MEMBER DASHBOARD (STITCH SCREEN 1) -->
+      <!-- ========================================== -->
+      <section id="view-dashboard" class="app-view hidden space-y-6">
+        <!-- Hero Welcome Banner -->
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary-container to-primary-dark shadow-md text-white p-6 sm:p-8 lg:p-10">
+          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div class="lg:col-span-7 space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md w-fit">
+                <span class="w-2 h-2 rounded-full bg-accent-green animate-pulse"></span>
+                <span class="text-[11px] tracking-wider text-white font-semibold uppercase">Platform Edukasi Digital Terpadu</span>
+              </div>
+              <h2 id="dash-welcome-nama" class="text-2xl sm:text-3xl font-bold tracking-tight">Selamat Datang Kembali! 👋</h2>
+              <p class="text-sm text-white/90 max-w-xl leading-relaxed">Lanjutkan kurikulum belajarmu hari ini. Akses video materi terbaru dan selesaikan modul untuk klaim sertifikat digital kelulusanmu.</p>
+              <div class="pt-2">
+                <button onclick="window.EduPathApp.bukaRuangMateri('CLS-001')" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-primary font-bold text-sm shadow hover:scale-[1.02] transition-transform">
+                  <span class="material-symbols-outlined text-[20px] text-primary">play_arrow</span>
+                  <span>Lanjutkan Belajar Sekarang</span>
+                </button>
+              </div>
+            </div>
+            <!-- Profile mini card right -->
+            <div class="lg:col-span-5 flex justify-end">
+              <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/20 w-full max-w-sm text-white space-y-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-full bg-white text-primary font-bold flex items-center justify-center text-lg">
+                    <span class="material-symbols-outlined">person</span>
+                  </div>
+                  <div>
+                    <h4 id="dash-member-nama" class="font-bold text-sm">Nama Member</h4>
+                    <span id="dash-member-tag" class="text-xs text-white/80">Member Aktif</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span>Kelengkapan Profil</span>
+                    <span id="dash-profile-pct" class="font-bold">85%</span>
+                  </div>
+                  <div class="w-full bg-white/20 h-2 rounded-full overflow-hidden">
+                    <div id="dash-profile-bar" class="bg-accent-green h-full rounded-full transition-all" style="width: 85%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Performance Cards (4 Columns) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="card-elevation rounded-2xl p-5 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-text-secondary uppercase font-bold">Kelas Aktif</span>
+              <div id="dash-stat-kelas" class="text-2xl font-bold text-text-primary mt-1">0</div>
+            </div>
+            <div class="w-11 h-11 rounded-xl bg-tint-blue-subtle text-primary flex items-center justify-center">
+              <span class="material-symbols-outlined text-[24px]">school</span>
+            </div>
+          </div>
+          <div class="card-elevation rounded-2xl p-5 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-text-secondary uppercase font-bold">Modul Selesai</span>
+              <div id="dash-stat-modul" class="text-2xl font-bold text-accent-green mt-1">0</div>
+            </div>
+            <div class="w-11 h-11 rounded-xl bg-tint-green-subtle text-accent-green flex items-center justify-center">
+              <span class="material-symbols-outlined text-[24px]">task_alt</span>
+            </div>
+          </div>
+          <div class="card-elevation rounded-2xl p-5 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-text-secondary uppercase font-bold">Rata-rata Progres</span>
+              <div id="dash-stat-progres" class="text-2xl font-bold text-primary mt-1">0%</div>
+            </div>
+            <div class="w-11 h-11 rounded-xl bg-tint-purple-subtle text-accent-purple flex items-center justify-center">
+              <span class="material-symbols-outlined text-[24px]">donut_large</span>
+            </div>
+          </div>
+          <div class="card-elevation rounded-2xl p-5 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-text-secondary uppercase font-bold">Total Waktu Belajar</span>
+              <div id="dash-stat-jam" class="text-2xl font-bold text-text-primary mt-1">0 Jam</div>
+            </div>
+            <div class="w-11 h-11 rounded-xl bg-tint-orange-subtle text-accent-orange flex items-center justify-center">
+              <span class="material-symbols-outlined text-[24px]">schedule</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kelas Saya Container -->
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-lg text-text-primary">Kelas yang Diikuti</h3>
+            <span class="text-xs text-primary font-bold cursor-pointer" onclick="window.EduPathApp.navigateTo('katalog')">+ Tambah Kelas Lain</span>
+          </div>
+          <div id="dash-kelas-list" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 3: RUANG MATERI (STITCH SCREEN 3)     -->
+      <!-- ========================================== -->
+      <section id="view-ruang-materi" class="app-view hidden space-y-6">
+        <!-- Breadcrumb & Class Header -->
+        <div class="card-elevation rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 text-xs text-text-secondary mb-1">
+              <span class="cursor-pointer hover:text-primary" onclick="window.EduPathApp.navigateTo('dashboard')">Dashboard</span>
+              <span>/</span>
+              <span class="font-bold text-primary">Ruang Belajar</span>
+            </div>
+            <h2 id="materi-kelas-judul" class="text-xl font-bold text-text-primary">Memuat Kelas...</h2>
+          </div>
+          <!-- Progress bar mini -->
+          <div class="bg-surface-container-low p-3.5 rounded-xl w-full md:w-72">
+            <div class="flex justify-between items-center text-xs font-bold mb-1">
+              <span>Progres Kelas</span>
+              <span id="materi-progres-pct" class="text-primary font-bold">0%</span>
+            </div>
+            <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+              <div id="materi-progres-bar" class="bg-primary-container h-full rounded-full transition-all" style="width: 0%"></div>
+            </div>
+            <span id="materi-progres-text" class="text-[11px] text-text-secondary mt-1 block">0 dari 0 Selesai</span>
+          </div>
+        </div>
+
+        <!-- 70% Video Studio / 30% Syllabus Checklist -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <!-- Main Player Column (~70%) -->
+          <div class="lg:col-span-8 space-y-4">
+            <div id="materi-player-container">
+              <!-- Iframe Video Loaded Here -->
+            </div>
+            <div class="card-elevation rounded-2xl p-6 space-y-3">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <h3 id="materi-active-judul" class="text-lg font-bold text-text-primary">Judul Modul</h3>
+                <button id="btn-tandai-selesai" class="px-5 py-2.5 rounded-xl bg-primary text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+                  <span class="material-symbols-outlined text-[18px]">task_alt</span>
+                  <span>Tandai Selesai</span>
+                </button>
+              </div>
+              <p id="materi-active-ringkasan" class="text-sm text-text-secondary leading-relaxed">Ringkasan modul...</p>
+            </div>
+          </div>
+
+          <!-- Syllabus Checklist Column (~30%) -->
+          <div class="lg:col-span-4 space-y-3">
+            <div class="card-elevation rounded-2xl p-4">
+              <h4 class="font-bold text-sm text-text-primary mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[20px] text-primary">format_list_bulleted</span>
+                <span>Alur Belajar Berurutan</span>
+              </h4>
+              <div id="materi-silabus-list" class="space-y-2">
+                <!-- Checklist items loaded dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 4: LOGIN & REGISTER                   -->
+      <!-- ========================================== -->
+      <section id="view-login" class="app-view hidden max-w-md mx-auto py-8">
+        <div class="card-elevation rounded-2xl p-8 space-y-6">
+          <div class="text-center space-y-1">
+            <h2 class="text-2xl font-bold text-text-primary">Masuk ke Portal</h2>
+            <p class="text-xs text-text-secondary">Silakan masuk menggunakan akun Member atau Admin</p>
+          </div>
+
+          <form id="form-login" class="space-y-4">
+            <!-- Role Toggle -->
+            <div class="flex p-1 bg-surface-container-low rounded-xl">
+              <label class="flex-1 text-center py-2 text-xs font-bold rounded-lg cursor-pointer transition-all has-[:checked]:bg-white has-[:checked]:shadow-sm">
+                <input type="radio" name="login-role" value="member" checked class="hidden">
+                <span>Member</span>
+              </label>
+              <label class="flex-1 text-center py-2 text-xs font-bold rounded-lg cursor-pointer transition-all has-[:checked]:bg-white has-[:checked]:shadow-sm">
+                <input type="radio" name="login-role" value="admin" class="hidden">
+                <span>Admin</span>
+              </label>
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-text-secondary">Email Terdaftar</label>
+              <input id="login-email" type="email" required placeholder="nama@example.com" class="w-full px-4 py-2.5 rounded-xl border border-surface-border text-sm focus:outline-none focus:border-primary-container">
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-text-secondary">Kata Sandi</label>
+              <input id="login-password" type="password" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-surface-border text-sm focus:outline-none focus:border-primary-container">
+              <span class="text-[11px] text-text-muted block">Admin default: AdminEduPath2026! | Member: member123</span>
+            </div>
+
+            <button id="btn-submit-login" type="submit" class="w-full py-3 rounded-xl bg-primary-container text-white font-bold text-sm shadow hover:bg-primary transition-all">
+              Masuk ke Akun
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 5: ADMIN DASHBOARD (ANALYTICS)        -->
+      <!-- ========================================== -->
+      <section id="view-admin-dashboard" class="app-view hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h2 class="text-xl font-bold text-text-primary">Dashboard Administrator EduPath</h2>
+            <p class="text-xs text-text-secondary">Ringkasan performa penjualan kursus, peserta, dan operasional</p>
+          </div>
+          <button onclick="window.EduPathApp.prosesAntrianManual()" class="px-4 py-2 rounded-xl bg-surface border border-surface-border text-text-primary font-bold text-xs flex items-center gap-2 hover:bg-surface-container-low transition-all">
+            <span class="material-symbols-outlined text-[18px] text-primary">sync</span>
+            <span>Trigger Antrean Notif</span>
+          </button>
+        </div>
+
+        <!-- 4 KPI Metrics -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="card-elevation rounded-2xl p-5">
+            <span class="text-xs text-text-secondary font-bold uppercase">Total Member</span>
+            <div id="adm-kpi-member" class="text-2xl font-bold text-text-primary mt-1">0</div>
+          </div>
+          <div class="card-elevation rounded-2xl p-5">
+            <span class="text-xs text-text-secondary font-bold uppercase">Member Aktif Belajar</span>
+            <div id="adm-kpi-aktif" class="text-2xl font-bold text-accent-green mt-1">0</div>
+          </div>
+          <div class="card-elevation rounded-2xl p-5">
+            <span class="text-xs text-text-secondary font-bold uppercase">Total Omset (CLV)</span>
+            <div id="adm-kpi-omset" class="text-xl font-bold text-primary mt-1">Rp 0</div>
+          </div>
+          <div class="card-elevation rounded-2xl p-5">
+            <span class="text-xs text-text-secondary font-bold uppercase">Pesan WA Terkirim</span>
+            <div id="adm-kpi-pesan" class="text-2xl font-bold text-text-primary mt-1">0</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 6: ADMIN MEMBER & CRM 360° (SCREEN 2) -->
+      <!-- ========================================== -->
+      <section id="view-admin-crm" class="app-view hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h2 class="text-xl font-bold text-text-primary">Member & CRM 360° EduPath</h2>
+            <p class="text-xs text-text-secondary">Kelola peserta kursus, segmentasi status, dan catatan profil lengkap</p>
+          </div>
+          <!-- Segment Filters -->
+          <div class="flex items-center gap-1.5 bg-white p-1 rounded-xl border border-surface-border">
+            <button onclick="window.EduPathApp.filterCRMBySegment('Semua')" class="px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-surface-container-low">Semua</button>
+            <button onclick="window.EduPathApp.filterCRMBySegment('Aktif')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-accent-green hover:bg-tint-green-subtle">Aktif</button>
+            <button onclick="window.EduPathApp.filterCRMBySegment('Lead')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-accent-orange hover:bg-tint-orange-subtle">Lead</button>
+          </div>
+        </div>
+
+        <!-- CRM Table -->
+        <div class="card-elevation rounded-2xl overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-surface-container-low border-b border-surface-border text-text-secondary font-bold text-[11px] uppercase tracking-wider">
+                  <th class="py-3 px-4">Member ID</th>
+                  <th class="py-3 px-4">Nama & Email</th>
+                  <th class="py-3 px-4">No. WhatsApp</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4">Tag Minat</th>
+                  <th class="py-3 px-4">Total CLV</th>
+                  <th class="py-3 px-4 text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="crm-table-body" class="divide-y divide-surface-border">
+                <!-- CRM Rows loaded via app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 7: ADMIN TRANSAKSI & VERIFIKASI (FR-10)-->
+      <!-- ========================================== -->
+      <section id="view-admin-transaksi" class="app-view hidden space-y-6">
+        <div>
+          <h2 class="text-xl font-bold text-text-primary">Daftar Transaksi & Pembayaran</h2>
+          <p class="text-xs text-text-secondary">Verifikasi invoice peserta untuk membuka akses materi otomatis</p>
+        </div>
+
+        <div class="card-elevation rounded-2xl overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-surface-container-low border-b border-surface-border text-text-secondary font-bold text-[11px] uppercase tracking-wider">
+                  <th class="py-3 px-4">No. Invoice</th>
+                  <th class="py-3 px-4">Peserta</th>
+                  <th class="py-3 px-4">Kursus</th>
+                  <th class="py-3 px-4">Nominal</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4">Bukti Bayar</th>
+                  <th class="py-3 px-4 text-right">Verifikasi</th>
+                </tr>
+              </thead>
+              <tbody id="trx-table-body" class="divide-y divide-surface-border">
+                <!-- Transactions loaded via app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 8: ADMIN WHATSAPP GATEWAY (SCREEN 4)  -->
+      <!-- ========================================== -->
+      <section id="view-admin-wa" class="app-view hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h2 class="text-xl font-bold text-text-primary">WhatsApp Gateway Engine & Antrean</h2>
+            <p class="text-xs text-text-secondary">Integrasi Fonnte API dengan antrean non-blocking anti-banned</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="wa-conn-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-badge-live-bg text-badge-live-text font-bold text-xs">
+              <span class="w-2 h-2 rounded-full bg-accent-green animate-pulse"></span>
+              <span>Fonnte Terhubung</span>
+            </span>
+            <button onclick="window.EduPathApp.bukaModalKirimManual()" class="px-3.5 py-1.5 rounded-xl bg-primary text-white font-bold text-xs flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">chat</span> Kirim Manual
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Gateway Status Column (~4 cols) -->
+          <div class="lg:col-span-5 space-y-4">
+            <div class="card-elevation rounded-2xl p-6 space-y-4">
+              <h4 class="font-bold text-sm text-text-primary border-b border-surface-border pb-2">Status Kredensial Script Properties</h4>
+              <div class="space-y-3 text-xs">
+                <div>
+                  <span class="text-text-muted">Token Fonnte Tersimpan:</span>
+                  <div id="wa-token-preview" class="font-mono font-bold text-text-primary mt-0.5">••••••</div>
+                </div>
+                <div class="flex items-center justify-between py-1">
+                  <span>Notifikasi WhatsApp Aktif:</span>
+                  <input id="wa-switch-wa" type="checkbox" checked class="w-4 h-4 accent-primary">
+                </div>
+                <div class="flex items-center justify-between py-1">
+                  <span>Notifikasi Email Aktif:</span>
+                  <input id="wa-switch-email" type="checkbox" checked class="w-4 h-4 accent-primary">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Queue Stream Column (~7 cols) -->
+          <div class="lg:col-span-7 space-y-3">
+            <div class="card-elevation rounded-2xl p-5">
+              <div class="flex items-center justify-between mb-3">
+                <h4 class="font-bold text-sm text-text-primary flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[20px] text-accent-green">mark_chat_read</span>
+                  <span>Antrean Notifikasi Terbaru</span>
+                </h4>
+                <button onclick="window.EduPathApp.prosesAntrianManual()" class="text-xs text-primary font-bold hover:underline">Proses Antrean</button>
+              </div>
+              <div id="wa-queue-list" class="space-y-2 max-h-[380px] overflow-y-auto">
+                <!-- Queue Items -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 9: ADMIN BROADCAST WA                 -->
+      <!-- ========================================== -->
+      <section id="view-admin-broadcast" class="app-view hidden max-w-2xl mx-auto space-y-6">
+        <div class="card-elevation rounded-2xl p-6 space-y-5">
+          <div class="border-b border-surface-border pb-3">
+            <h2 class="text-lg font-bold text-text-primary">Buat Broadcast WhatsApp Massal</h2>
+            <p class="text-xs text-text-secondary">Pesan dikirim bertahap (batch 20, jeda 4 detik) untuk melindungi nomor dari banned.</p>
+          </div>
+
+          <form onsubmit="event.preventDefault(); window.EduPathApp.submitBroadcastWA(event);" class="space-y-4">
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-text-secondary">Judul Kampanye</label>
+              <input id="bc-judul" type="text" required placeholder="Contoh: Webinar Gratis Batch Mei" class="w-full px-4 py-2.5 rounded-xl border border-surface-border text-sm">
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-text-secondary">Sasaran Penerima</label>
+              <select id="bc-sasaran" class="w-full px-4 py-2.5 rounded-xl border border-surface-border text-sm">
+                <option value="Semua">Semua Kontak (Lead & Member)</option>
+                <option value="Lead">Hanya Lead (Belum Bayar)</option>
+                <option value="Member">Hanya Member Aktif</option>
+              </select>
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-text-secondary">Isi Pesan (Gunakan {nama} untuk personalisasi)</label>
+              <textarea id="bc-pesan" rows="5" required placeholder="Halo {nama}, jangan lewatkan rilis modul terbaru..." class="w-full p-4 rounded-xl border border-surface-border text-sm"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3 rounded-xl bg-primary-container text-white font-bold text-sm shadow hover:bg-primary transition-all flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-[18px]">send</span>
+              <span>Kirim Broadcast Massal</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 10: ADMIN KELOLA KELAS & SILABUS      -->
+      <!-- ========================================== -->
+      <section id="view-admin-kelas" class="app-view hidden space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-bold text-text-primary">Kelola Kelas & Kurikulum</h2>
+            <p class="text-xs text-text-secondary">Tambah atau perbarui modul video, YouTube embed, dan lampiran materi</p>
+          </div>
+        </div>
+
+        <div id="admin-kelas-container" class="space-y-6">
+          <!-- Course with syllabus list -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- MODALS & DRAWERS                             -->
+  <!-- ============================================ -->
+
+  <!-- Modal Checkout -->
+  <div id="modal-checkout" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-start">
+        <div>
+          <h3 class="font-bold text-lg text-text-primary">Pendaftaran Kursus</h3>
+          <p id="checkout-kelas-judul" class="text-xs text-primary font-bold">Judul Kelas</p>
+        </div>
+        <button onclick="document.getElementById('modal-checkout').classList.add('hidden')" class="text-text-muted hover:text-text-primary">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <div class="p-3.5 bg-tint-blue-subtle rounded-xl flex justify-between items-center text-sm">
+        <span class="text-text-secondary">Biaya Investasi:</span>
+        <span id="checkout-kelas-harga" class="font-bold text-primary text-base">Rp 0</span>
+      </div>
+
+      <form id="form-checkout" class="space-y-3">
+        <input type="hidden" id="checkout-kelas-id">
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-text-secondary">Nama Lengkap</label>
+          <input id="checkout-nama" type="text" required placeholder="Nama Anda" class="w-full px-3.5 py-2 rounded-xl border border-surface-border text-sm">
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-text-secondary">Alamat Email</label>
+          <input id="checkout-email" type="email" required placeholder="email@example.com" class="w-full px-3.5 py-2 rounded-xl border border-surface-border text-sm">
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-text-secondary">Nomor WhatsApp (Aktif)</label>
+          <input id="checkout-wa" type="tel" required placeholder="08xxxxxxxxxx" class="w-full px-3.5 py-2 rounded-xl border border-surface-border text-sm">
+          <span class="text-[11px] text-text-muted">Invoice & link akses akan dikirim ke nomor ini</span>
+        </div>
+        <button id="btn-submit-checkout" type="submit" class="w-full py-2.5 rounded-xl bg-primary-container text-white font-bold text-sm flex items-center justify-center gap-1.5 shadow hover:bg-primary transition-all">
+          <span>Lanjutkan Pembayaran</span>
+          <span class="material-symbols-outlined text-[18px]">check_circle</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Instruksi Bayar & Unggah Bukti -->
+  <div id="modal-instruksi-bayar" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-start">
+        <div>
+          <h3 class="font-bold text-lg text-text-primary">Instruksi Pembayaran</h3>
+          <p class="text-xs text-text-secondary">Invoice: <span id="instruksi-invoice" class="font-bold text-primary">INV-XXX</span></p>
+        </div>
+        <button onclick="document.getElementById('modal-instruksi-bayar').classList.add('hidden')" class="text-text-muted hover:text-text-primary">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <div class="p-4 bg-tint-orange-subtle border border-amber-200 rounded-xl space-y-2 text-xs">
+        <div class="flex justify-between">
+          <span class="text-text-secondary">Kelas:</span>
+          <span id="instruksi-kelas" class="font-bold text-text-primary text-right">Judul</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-text-secondary">Total Tagihan:</span>
+          <span id="instruksi-nominal" class="font-bold text-primary text-sm">Rp 0</span>
+        </div>
+        <div class="pt-2 border-t border-amber-200/60 text-text-primary font-medium">
+          Transfer ke rekening resmi:<br>
+          <strong>BCA: 8735091234</strong> a.n EduPath Digital
+        </div>
+      </div>
+
+      <form id="form-unggah-bukti" class="space-y-3">
+        <input type="hidden" id="upload-trx-id">
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-text-secondary">Unggah Bukti Transfer (Foto / PDF)</label>
+          <input id="upload-bukti-file" type="file" accept="image/*,application/pdf" required class="w-full text-xs file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-tint-blue-subtle file:text-primary file:font-bold">
+        </div>
+        <button id="btn-submit-bukti" type="submit" class="w-full py-2.5 rounded-xl bg-accent-green text-white font-bold text-sm shadow hover:opacity-90">
+          Kirim Bukti Pembayaran
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CRM 360° Drawer Backdrop & Side Drawer (STITCH SCREEN 2) -->
+  <div id="drawer-backdrop" class="drawer-backdrop" onclick="window.EduPathApp.tutupDrawerCRM()"></div>
+  <aside id="drawer-crm-360" class="side-drawer p-6 overflow-y-auto space-y-6">
+    <div class="flex items-center justify-between border-b border-surface-border pb-4">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-base">
+          <span class="material-symbols-outlined">person</span>
+        </div>
+        <div>
+          <h3 id="crm-drawer-nama" class="font-bold text-base text-text-primary">Nama Member</h3>
+          <span id="crm-drawer-id" class="text-xs text-text-muted">MBR-1001</span>
+        </div>
+      </div>
+      <button onclick="window.EduPathApp.tutupDrawerCRM()" class="p-1 rounded-lg text-text-muted hover:text-text-primary">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+
+    <!-- 360 Info Badges -->
+    <div class="grid grid-cols-2 gap-3 text-xs">
+      <div class="p-3 bg-surface-container-low rounded-xl">
+        <span class="text-text-muted block">Status Peserta:</span>
+        <span id="crm-drawer-status" class="font-bold text-primary text-sm">Aktif</span>
+      </div>
+      <div class="p-3 bg-surface-container-low rounded-xl">
+        <span class="text-text-muted block">Customer Lifetime Value:</span>
+        <span id="crm-drawer-clv" class="font-bold text-accent-green text-sm">Rp 0</span>
+      </div>
+    </div>
+
+    <div class="space-y-2 text-xs">
+      <div><span class="text-text-muted">Email:</span> <span id="crm-drawer-email" class="font-bold text-text-primary ml-1"></span></div>
+      <div><span class="text-text-muted">No. WA:</span> <span id="crm-drawer-wa" class="font-bold text-text-primary ml-1"></span></div>
+    </div>
+
+    <!-- Catatan & Tag Input -->
+    <div class="space-y-3">
+      <div class="space-y-1">
+        <label class="text-xs font-bold text-text-secondary">Tag Minat</label>
+        <input id="crm-drawer-tag" type="text" class="w-full px-3 py-2 rounded-xl border border-surface-border text-xs">
+      </div>
+      <div class="space-y-1">
+        <label class="text-xs font-bold text-text-secondary">Catatan Admin</label>
+        <textarea id="crm-drawer-catatan" rows="3" class="w-full p-3 rounded-xl border border-surface-border text-xs"></textarea>
+      </div>
+      <button onclick="window.EduPathApp.simpanCatatanDrawerCRM()" class="w-full py-2 rounded-xl bg-primary-container text-white font-bold text-xs">
+        Simpan Profil CRM
+      </button>
+    </div>
+
+    <!-- Riwayat Interaksi -->
+    <div class="space-y-2 pt-2 border-t border-surface-border">
+      <h4 class="text-xs font-bold text-text-primary">Riwayat Interaksi & Notifikasi:</h4>
+      <div id="crm-drawer-interaksi" class="space-y-2">
+        <!-- Interaksi Log -->
+      </div>
+    </div>
+  </aside>
+
+  <!-- Modal Tambah Modul -->
+  <div id="modal-tambah-modul" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-base text-text-primary">+ Tambah Modul Kurikulum</h3>
+        <button onclick="document.getElementById('modal-tambah-modul').classList.add('hidden')" class="text-text-muted"><span class="material-symbols-outlined text-[20px]">close</span></button>
+      </div>
+      <form id="form-tambah-modul" class="space-y-3">
+        <input type="hidden" id="modal-modul-kelas-id">
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-text-secondary">Judul Modul</label>
+          <input id="modul-judul" type="text" required placeholder="Contoh: Arsitektur REST API" class="w-full px-3 py-2 rounded-xl border border-surface-border text-xs">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div class="space-y-1">
+            <label class="text-xs font-bold text-text-secondary">Urutan</label>
+            <input id="modul-urutan" type="number" required value="1" class="w-full px-3 py-2 rounded-xl border border-surface-border text-xs">
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-bold text-text-secondary">Tipe Konten</label>
+            <select id="modul-tipe" class="w-full px-3 py-2 rounded-xl border border-surface-border text-xs">
+              <option value="Video">Video</option>
+              <option value="Dokumen">Dokumen</option>
+            </select>
+          </div>
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-text-secondary">Sumber (YouTube Embed URL / Drive)</label>
+          <input id="modul-sumber" type="url" required placeholder="https://www.youtube.com/embed/..." class="w-full px-3 py-2 rounded-xl border border-surface-border text-xs">
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-text-secondary">Estimasi Durasi (Menit)</label>
+          <input id="modul-durasi" type="number" value="30" class="w-full px-3 py-2 rounded-xl border border-surface-border text-xs">
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-text-secondary">Ringkasan Materi</label>
+          <textarea id="modul-ringkasan" rows="2" class="w-full p-2.5 rounded-xl border border-surface-border text-xs"></textarea>
+        </div>
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-primary-container text-white font-bold text-xs">Simpan Modul</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Migrasi Database (GAS-MIGRASI-DATABASE) -->
+  <div id="modal-migrasi-db" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center">
+        <div>
+          <h3 class="font-bold text-base text-text-primary">Migrasi & Sinkronisasi Database</h3>
+          <p class="text-xs text-text-secondary">Impor data dari spreadsheet versi lama tanpa mengubah file sumber</p>
+        </div>
+        <button onclick="document.getElementById('modal-migrasi-db').classList.add('hidden')" class="text-text-muted"><span class="material-symbols-outlined text-[20px]">close</span></button>
+      </div>
+
+      <div class="space-y-3">
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-text-secondary">ID atau URL Spreadsheet Lama</label>
+          <input id="migrasi-source-url" type="text" placeholder="https://docs.google.com/spreadsheets/d/1abc.../edit" class="w-full px-3.5 py-2 rounded-xl border border-surface-border text-xs">
+        </div>
+
+        <div class="flex gap-2">
+          <button onclick="window.EduPathApp.jalankanSimulasiMigrasi(true)" class="flex-1 py-2 rounded-xl bg-tint-blue-subtle text-primary font-bold text-xs hover:bg-primary-container hover:text-white transition-all">
+            1. Pindai Simulasi (Dry-Run)
+          </button>
+          <button onclick="window.EduPathApp.jalankanSimulasiMigrasi(false)" class="flex-1 py-2 rounded-xl bg-primary-container text-white font-bold text-xs hover:bg-primary transition-all">
+            2. Eksekusi Migrasi
+          </button>
+        </div>
+
+        <div id="migrasi-result-box" class="hidden"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Kirim Pesan Manual WA -->
+  <div id="modal-wa-manual" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-base text-text-primary">Kirim Pesan WhatsApp Manual</h3>
+        <button onclick="document.getElementById('modal-wa-manual').classList.add('hidden')" class="text-text-muted"><span class="material-symbols-outlined text-[20px]">close</span></button>
+      </div>
+      <form id="form-wa-manual" class="space-y-3">
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-text-secondary">Nomor WhatsApp Tujuan</label>
+          <input id="manual-wa-nomor" type="tel" required placeholder="08xxxxxxxxxx" class="w-full px-3 py-2 rounded-xl border border-surface-border text-xs">
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-text-secondary">Isi Pesan</label>
+          <textarea id="manual-wa-pesan" rows="4" required class="w-full p-3 rounded-xl border border-surface-border text-xs" placeholder="Tulis pesan..."></textarea>
+        </div>
+        <button type="submit" class="w-full py-2 rounded-xl bg-accent-green text-white font-bold text-xs">Kirim Pesan</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
